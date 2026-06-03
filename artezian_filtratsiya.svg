@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="650" viewBox="0 0 1000 650">
+<defs>
+  <!-- Gradientlar -->
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#1a78c2"/>
+    <stop offset="60%" stop-color="#64b5f6"/>
+    <stop offset="100%" stop-color="#bbdefb"/>
+  </linearGradient>
+  <linearGradient id="grass_g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#7cb342"/>
+    <stop offset="100%" stop-color="#4a7c20"/>
+  </linearGradient>
+  <linearGradient id="soil_g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#d4a96a"/>
+    <stop offset="100%" stop-color="#b8832e"/>
+  </linearGradient>
+  <linearGradient id="clay_g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#a1887f"/>
+    <stop offset="100%" stop-color="#6d4c41"/>
+  </linearGradient>
+  <linearGradient id="napor_g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#1565c0"/>
+    <stop offset="100%" stop-color="#003c8f"/>
+  </linearGradient>
+  <linearGradient id="rock_g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#546e7a"/>
+    <stop offset="100%" stop-color="#263238"/>
+  </linearGradient>
+  <linearGradient id="water_drop" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#80d8ff"/>
+    <stop offset="100%" stop-color="#0091ea"/>
+  </linearGradient>
+  <linearGradient id="well_g" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0%" stop-color="#37474f"/>
+    <stop offset="40%" stop-color="#78909c"/>
+    <stop offset="100%" stop-color="#37474f"/>
+  </linearGradient>
+  <linearGradient id="mountain_g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#78909c"/>
+    <stop offset="50%" stop-color="#4e6b75"/>
+    <stop offset="100%" stop-color="#374955"/>
+  </linearGradient>
+  <linearGradient id="snow_g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#ffffff"/>
+    <stop offset="100%" stop-color="#e3f2fd"/>
+  </linearGradient>
+  <linearGradient id="fontan_g" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0%" stop-color="#80deea"/>
+    <stop offset="100%" stop-color="#00b0ff"/>
+  </linearGradient>
+
+  <!-- G'ovak tuproq pattern -->
+  <pattern id="p_soil" width="20" height="16" patternUnits="userSpaceOnUse">
+    <rect width="20" height="16" fill="#c8913a"/>
+    <ellipse cx="5" cy="5" rx="3.5" ry="2.8" fill="#8a5c18" opacity="0.55"/>
+    <ellipse cx="15" cy="11" rx="4" ry="3" fill="#7a4c10" opacity="0.45"/>
+    <ellipse cx="3" cy="13" rx="2.5" ry="2" fill="#9a6c28" opacity="0.4"/>
+    <ellipse cx="12" cy="3" rx="2" ry="1.5" fill="#8a5c18" opacity="0.35"/>
+  </pattern>
+
+  <!-- Naporli suv pattern - g'ovak, to'lgan -->
+  <pattern id="p_water" width="18" height="14" patternUnits="userSpaceOnUse">
+    <rect width="18" height="14" fill="#1565c0"/>
+    <ellipse cx="4" cy="4" rx="3" ry="2.2" fill="#0d3f8a" opacity="0.5"/>
+    <ellipse cx="13" cy="9" rx="3.5" ry="2.5" fill="#092860" opacity="0.45"/>
+    <ellipse cx="3" cy="11" rx="2" ry="1.5" fill="#0d3f8a" opacity="0.4"/>
+    <ellipse cx="15" cy="3" rx="2" ry="1.5" fill="#092860" opacity="0.35"/>
+  </pattern>
+
+  <!-- Gil qatlam pattern -->
+  <pattern id="p_clay" width="24" height="10" patternUnits="userSpaceOnUse">
+    <rect width="24" height="10" fill="#8d6e63"/>
+    <line x1="0" y1="3" x2="24" y2="3" stroke="#5d4037" stroke-width="1.2"/>
+    <line x1="0" y1="7" x2="24" y2="7" stroke="#5d4037" stroke-width="0.7"/>
+    <line x1="5" y1="0" x2="0" y2="5" stroke="#5d4037" stroke-width="0.5" opacity="0.4"/>
+    <line x1="17" y1="0" x2="24" y2="7" stroke="#5d4037" stroke-width="0.5" opacity="0.4"/>
+  </pattern>
+
+  <!-- Toshqatlam pattern -->
+  <pattern id="p_rock" width="30" height="20" patternUnits="userSpaceOnUse">
+    <rect width="30" height="20" fill="#546e7a"/>
+    <polygon points="0,0 15,0 7,10" fill="#37474f" opacity="0.5"/>
+    <polygon points="15,0 30,0 22,10" fill="#78909c" opacity="0.4"/>
+    <polygon points="0,10 15,10 7,20" fill="#78909c" opacity="0.4"/>
+    <polygon points="15,10 30,10 22,20" fill="#37474f" opacity="0.5"/>
+  </pattern>
+
+  <!-- Strelkalar -->
+  <marker id="arr_r" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+    <polygon points="0 0, 10 4, 0 8" fill="#80d8ff"/>
+  </marker>
+  <marker id="arr_r2" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+    <polygon points="0 0, 10 4, 0 8" fill="#4fc3f7"/>
+  </marker>
+  <marker id="arr_up" markerWidth="8" markerHeight="10" refX="4" refY="1" orient="auto">
+    <polygon points="0 10, 8 10, 4 0" fill="#00e5ff"/>
+  </marker>
+  <marker id="arr_down" markerWidth="8" markerHeight="10" refX="4" refY="9" orient="auto">
+    <polygon points="0 0, 8 0, 4 10" fill="#4fc3f7"/>
+  </marker>
+
+  <!-- Soya -->
+  <filter id="blur2">
+    <feGaussianBlur stdDeviation="2.5"/>
+  </filter>
+  <filter id="glow">
+    <feGaussianBlur stdDeviation="3" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+</defs>
+
+
+<!-- ============ OSMON ============ -->
+<rect x="0" y="0" width="1000" height="185" fill="url(#sky)"/>
+
+<!-- Quyosh nurlari (fon) -->
+<circle cx="880" cy="62" r="70" fill="#fff176" opacity="0.18"/>
+<circle cx="880" cy="62" r="50" fill="#ffee58" opacity="0.22"/>
+<circle cx="880" cy="62" r="34" fill="#fff9c4" opacity="0.7"/>
+<circle cx="880" cy="62" r="24" fill="#fffde7"/>
+<!-- Quyosh nurlari chiziqlar -->
+<line x1="880" y1="20" x2="880" y2="32" stroke="#ffd600" stroke-width="2.5"/>
+<line x1="880" y1="92" x2="880" y2="104" stroke="#ffd600" stroke-width="2.5"/>
+<line x1="838" y1="62" x2="826" y2="62" stroke="#ffd600" stroke-width="2.5"/>
+<line x1="922" y1="62" x2="934" y2="62" stroke="#ffd600" stroke-width="2.5"/>
+<line x1="852" y1="32" x2="843" y2="23" stroke="#ffd600" stroke-width="2"/>
+<line x1="908" y1="92" x2="917" y2="101" stroke="#ffd600" stroke-width="2"/>
+<line x1="908" y1="32" x2="917" y2="23" stroke="#ffd600" stroke-width="2"/>
+<line x1="852" y1="92" x2="843" y2="101" stroke="#ffd600" stroke-width="2"/>
+
+<!-- Bulut 1 -->
+<ellipse cx="160" cy="48" rx="65" ry="28" fill="white" opacity="0.95"/>
+<ellipse cx="210" cy="36" rx="48" ry="22" fill="white" opacity="0.92"/>
+<ellipse cx="120" cy="42" rx="40" ry="20" fill="white" opacity="0.88"/>
+<ellipse cx="185" cy="55" rx="35" ry="15" fill="#f0f8ff" opacity="0.75"/>
+<!-- Bulut soya -->
+<ellipse cx="165" cy="72" rx="60" ry="10" fill="#b0bec5" opacity="0.15" filter="url(#blur2)"/>
+
+<!-- Bulut 2 -->
+<ellipse cx="560" cy="42" rx="55" ry="24" fill="white" opacity="0.9"/>
+<ellipse cx="600" cy="32" rx="40" ry="19" fill="white" opacity="0.88"/>
+<ellipse cx="530" cy="38" rx="35" ry="17" fill="white" opacity="0.85"/>
+
+<!-- Yomg'ir bulut 1 dan -->
+<line x1="112" y1="72" x2="106" y2="90" stroke="#4fc3f7" stroke-width="2.2"/>
+<line x1="128" y1="76" x2="122" y2="94" stroke="#29b6f6" stroke-width="2"/>
+<line x1="144" y1="73" x2="138" y2="91" stroke="#4fc3f7" stroke-width="2.2"/>
+<line x1="160" y1="76" x2="154" y2="94" stroke="#29b6f6" stroke-width="2"/>
+<line x1="176" y1="72" x2="170" y2="90" stroke="#4fc3f7" stroke-width="2"/>
+<line x1="192" y1="75" x2="186" y2="93" stroke="#29b6f6" stroke-width="2.2"/>
+<line x1="208" y1="71" x2="202" y2="89" stroke="#4fc3f7" stroke-width="2"/>
+
+<!-- ============ TOG' (chapda) ============ -->
+<!-- Tog' asosi soyasi -->
+<ellipse cx="105" cy="188" rx="130" ry="20" fill="#263238" opacity="0.25" filter="url(#blur2)"/>
+<!-- Asosiy tog' -->
+<polygon points="-5,188 105,38 215,188" fill="url(#mountain_g)"/>
+<!-- Tog' yon qirrasi -->
+<polygon points="10,188 105,42 200,188 180,188 105,65 30,188" fill="#37474f" opacity="0.3"/>
+<!-- Qor -->
+<polygon points="75,80 105,38 135,80 118,76 105,52 92,76" fill="url(#snow_g)"/>
+<ellipse cx="105" cy="60" rx="20" ry="12" fill="white" opacity="0.8"/>
+<!-- Tog' toshi -->
+<polygon points="55,155 80,130 110,150 130,125 160,155 145,165 105,148 65,165" fill="#455a64" opacity="0.4"/>
+
+<!-- Tog'dan chiqayotgan suv (manba) -->
+<path d="M185,178 Q205,170 220,178 Q230,184 225,190" fill="none" stroke="#4fc3f7" stroke-width="2.5"/>
+<circle cx="226" cy="192" r="4" fill="#29b6f6" opacity="0.8"/>
+<circle cx="214" cy="175" r="3" fill="#4fc3f7" opacity="0.7"/>
+
+
+<!-- ============ YER YUZASI ============ -->
+<!-- Yashil o'tloq -->
+<path d="M0,182 Q50,170 100,180 Q150,190 200,180 Q250,170 300,180 Q350,192 400,182 Q450,172 500,182 Q550,192 600,182 Q650,172 700,182 Q750,192 800,182 Q850,172 900,182 Q950,192 1000,182 L1000,200 L0,200 Z" fill="url(#grass_g)"/>
+<!-- O'tlar -->
+<line x1="240" y1="182" x2="234" y2="165" stroke="#33691e" stroke-width="2.5"/>
+<line x1="248" y1="181" x2="255" y2="164" stroke="#558b2f" stroke-width="2.2"/>
+<line x1="320" y1="180" x2="314" y2="163" stroke="#33691e" stroke-width="2.5"/>
+<line x1="328" y1="179" x2="335" y2="162" stroke="#558b2f" stroke-width="2.2"/>
+<line x1="440" y1="182" x2="434" y2="165" stroke="#33691e" stroke-width="2.5"/>
+<line x1="448" y1="181" x2="455" y2="164" stroke="#558b2f" stroke-width="2.2"/>
+<line x1="680" y1="180" x2="674" y2="163" stroke="#33691e" stroke-width="2.5"/>
+<line x1="688" y1="179" x2="695" y2="162" stroke="#558b2f" stroke-width="2.2"/>
+<line x1="810" y1="181" x2="804" y2="164" stroke="#33691e" stroke-width="2.5"/>
+<line x1="818" y1="180" x2="825" y2="163" stroke="#558b2f" stroke-width="2.2"/>
+<!-- Daraxt o'ngda -->
+<rect x="748" y="145" width="11" height="40" fill="#4e342e" rx="2"/>
+<ellipse cx="753" cy="132" rx="28" ry="30" fill="#1b5e20"/>
+<ellipse cx="737" cy="142" rx="19" ry="22" fill="#2e7d32"/>
+<ellipse cx="770" cy="140" rx="19" ry="22" fill="#1b5e20"/>
+<ellipse cx="753" cy="118" rx="20" ry="19" fill="#388e3c"/>
+<!-- Daraxt o'ngda-2 -->
+<rect x="820" y="150" width="9" height="35" fill="#4e342e" rx="2"/>
+<ellipse cx="824" cy="138" rx="22" ry="24" fill="#2e7d32"/>
+<ellipse cx="811" cy="147" rx="15" ry="18" fill="#388e3c"/>
+<ellipse cx="838" cy="145" rx="15" ry="18" fill="#2e7d32"/>
+
+<!-- ============ I - G'OVAK QURUQ TUPROQ (vadoz zona) ============ -->
+<rect x="0" y="200" width="1000" height="95" fill="url(#p_soil)"/>
+<!-- Qo'shimcha donachalar -->
+<circle cx="280" cy="222" r="9" fill="#7a4c18" opacity="0.45"/>
+<circle cx="400" cy="240" r="11" fill="#8a5c20" opacity="0.4"/>
+<circle cx="530" cy="218" r="8" fill="#9a6c30" opacity="0.45"/>
+<circle cx="680" cy="238" r="10" fill="#7a4c18" opacity="0.4"/>
+<circle cx="820" cy="222" r="9" fill="#8a5c20" opacity="0.45"/>
+<!-- Infiltratsiya o'qlari -->
+<line x1="128" y1="200" x2="128" y2="226" stroke="#29b6f6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr_down)"/>
+<line x1="155" y1="200" x2="155" y2="226" stroke="#29b6f6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr_down)"/>
+<line x1="182" y1="200" x2="182" y2="226" stroke="#29b6f6" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arr_down)"/>
+
+<!-- ============ SIZOT SUV ERKIN SATHI ============ -->
+<path d="M0,295 Q25,286 50,295 Q75,304 100,295 Q125,286 150,295 Q175,304 200,295 Q225,286 250,295 Q275,304 300,295 Q325,286 350,295 Q375,304 400,295 Q425,286 450,295 Q475,304 500,295 Q525,286 550,295 Q575,304 600,295 Q625,286 650,295 Q675,304 700,295 Q725,286 750,295 Q775,304 800,295 Q825,286 850,295 Q875,304 900,295 Q925,286 950,295 Q975,304 1000,295"
+      fill="none" stroke="#0277bd" stroke-width="3.5" opacity="0.9"/>
+
+<!-- ============ II - SIZOT SUV QATLAMI ============ -->
+<rect x="0" y="295" width="1000" height="70" fill="url(#p_water)" opacity="0.7"/>
+<!-- Suvning to'lqin effekti -->
+<path d="M0,310 Q30,302 60,310 Q90,318 120,310 Q150,302 180,310 Q210,318 240,310 Q270,302 300,310 Q330,318 360,310 Q390,302 420,310 Q450,318 480,310"
+      fill="none" stroke="#4fc3f7" stroke-width="1.5" opacity="0.5"/>
+<path d="M520,320 Q560,312 600,320 Q640,328 680,320 Q720,312 760,320 Q800,328 840,320 Q880,312 920,320 Q960,328 1000,320"
+      fill="none" stroke="#4fc3f7" stroke-width="1.5" opacity="0.5"/>
+<!-- Gorizontal oqim -->
+<line x1="40" y1="330" x2="130" y2="330" stroke="#80d8ff" stroke-width="2.2" stroke-dasharray="10,5" marker-end="url(#arr_r)"/>
+<line x1="185" y1="325" x2="275" y2="325" stroke="#80d8ff" stroke-width="2.2" stroke-dasharray="10,5" marker-end="url(#arr_r)"/>
+<line x1="600" y1="330" x2="690" y2="330" stroke="#80d8ff" stroke-width="2.2" stroke-dasharray="10,5" marker-end="url(#arr_r)"/>
+<line x1="745" y1="325" x2="835" y2="325" stroke="#80d8ff" stroke-width="2.2" stroke-dasharray="10,5" marker-end="url(#arr_r)"/>
+
+
+<!-- ============ III - GIL QATLAM (suyo'tkazmas 1) ============ -->
+<rect x="0" y="365" width="1000" height="45" fill="url(#p_clay)"/>
+<line x1="0" y1="368" x2="1000" y2="368" stroke="#4e342e" stroke-width="2.5"/>
+<line x1="0" y1="407" x2="1000" y2="407" stroke="#4e342e" stroke-width="2.5"/>
+<!-- Gil bo'laklari -->
+<ellipse cx="150" cy="387" rx="22" ry="8" fill="#6d4c41" opacity="0.4"/>
+<ellipse cx="380" cy="384" rx="28" ry="9" fill="#5d4037" opacity="0.4"/>
+<ellipse cx="650" cy="387" rx="25" ry="8" fill="#6d4c41" opacity="0.4"/>
+<ellipse cx="880" cy="383" rx="20" ry="7" fill="#5d4037" opacity="0.4"/>
+<!-- Mikroskopik sizib o'tish -->
+<line x1="500" y1="365" x2="500" y2="410" stroke="#ff8a65" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.7" marker-end="url(#arr_down)"/>
+<line x1="750" y1="365" x2="750" y2="410" stroke="#ff8a65" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.7" marker-end="url(#arr_down)"/>
+
+<!-- ============ IV - NAPORLI ARTEZIAN SUV (asosiy) ============ -->
+<rect x="0" y="410" width="1000" height="110" fill="url(#p_water)"/>
+<!-- Kuchli gorizontal napr oqimlari -->
+<line x1="20" y1="440" x2="135" y2="440" stroke="#80d8ff" stroke-width="3" marker-end="url(#arr_r2)"/>
+<line x1="20" y1="462" x2="135" y2="462" stroke="#80d8ff" stroke-width="3" marker-end="url(#arr_r2)"/>
+<line x1="20" y1="484" x2="135" y2="484" stroke="#80d8ff" stroke-width="2.5" marker-end="url(#arr_r2)"/>
+<line x1="185" y1="450" x2="300" y2="450" stroke="#80d8ff" stroke-width="3" marker-end="url(#arr_r2)"/>
+<line x1="185" y1="472" x2="300" y2="472" stroke="#80d8ff" stroke-width="3" marker-end="url(#arr_r2)"/>
+<!-- Bosim to'lqinlari o'ngda -->
+<path d="M720,438 Q745,428 770,438 Q795,448 820,438" fill="none" stroke="#4fc3f7" stroke-width="2.5" opacity="0.65"/>
+<path d="M720,460 Q745,450 770,460 Q795,470 820,460" fill="none" stroke="#4fc3f7" stroke-width="2.5" opacity="0.65"/>
+<path d="M720,482 Q745,472 770,482 Q795,492 820,482" fill="none" stroke="#4fc3f7" stroke-width="2.5" opacity="0.65"/>
+<path d="M840,445 Q865,435 890,445 Q915,455 940,445" fill="none" stroke="#4fc3f7" stroke-width="2.5" opacity="0.65"/>
+<path d="M840,468 Q865,458 890,468 Q915,478 940,468" fill="none" stroke="#4fc3f7" stroke-width="2.5" opacity="0.65"/>
+<!-- Yorug'lik effekti -->
+<rect x="0" y="410" width="1000" height="8" fill="white" opacity="0.08"/>
+
+<!-- ============ V - TOSHQATLAM ============ -->
+<rect x="0" y="520" width="1000" height="45" fill="url(#p_rock)"/>
+<line x1="0" y1="523" x2="1000" y2="523" stroke="#263238" stroke-width="3"/>
+<line x1="0" y1="562" x2="1000" y2="562" stroke="#263238" stroke-width="3"/>
+<!-- Tosh bo'laklari -->
+<polygon points="80,523 130,523 105,545" fill="#37474f" opacity="0.5"/>
+<polygon points="280,523 338,523 309,547" fill="#546e7a" opacity="0.45"/>
+<polygon points="550,523 605,523 578,544" fill="#37474f" opacity="0.5"/>
+<polygon points="760,523 815,523 788,546" fill="#546e7a" opacity="0.45"/>
+<polygon points="920,523 975,523 948,544" fill="#37474f" opacity="0.5"/>
+
+<!-- ============ VI - GRANIT ASOS ============ -->
+<rect x="0" y="565" width="1000" height="85" fill="#212121"/>
+<!-- Granit kristallari -->
+<polygon points="0,565 80,565 40,590" fill="#424242" opacity="0.5"/>
+<polygon points="80,565 200,565 140,595" fill="#303030" opacity="0.45"/>
+<polygon points="200,565 340,565 270,593" fill="#424242" opacity="0.5"/>
+<polygon points="340,565 480,565 410,591" fill="#303030" opacity="0.45"/>
+<polygon points="480,565 630,565 555,595" fill="#424242" opacity="0.5"/>
+<polygon points="630,565 790,565 710,592" fill="#303030" opacity="0.45"/>
+<polygon points="790,565 960,565 875,594" fill="#424242" opacity="0.5"/>
+<polygon points="960,565 1000,565 1000,595" fill="#303030" opacity="0.45"/>
+<line x1="0" y1="568" x2="1000" y2="568" stroke="#111" stroke-width="3"/>
+<!-- Granit tosh darchalari -->
+<circle cx="120" cy="585" r="5" fill="#555" opacity="0.5"/>
+<circle cx="360" cy="580" r="4" fill="#666" opacity="0.45"/>
+<circle cx="600" cy="588" r="5" fill="#555" opacity="0.5"/>
+<circle cx="850" cy="582" r="4" fill="#666" opacity="0.45"/>
+
+
+<!-- ============ ARTEZIAN QUDUQ (markazda) ============ -->
+<!-- Quduq soyasi -->
+<ellipse cx="520" cy="198" rx="16" ry="5" fill="#111" opacity="0.3" filter="url(#blur2)"/>
+<!-- Quduq tashqi devor - chuqur (gil va naporli qavatga kiradi) -->
+<rect x="510" y="160" width="20" height="410" rx="3" fill="url(#well_g)" filter="url(#blur2)" opacity="0.3"/>
+<rect x="511" y="160" width="18" height="410" rx="3" fill="url(#well_g)"/>
+<!-- Ichki suv qatlamlar bo'yicha -->
+<rect x="516" y="295" width="8" height="70" fill="#29b6f6" opacity="0.85"/>
+<rect x="516" y="410" width="8" height="110" fill="#0d47a1" opacity="0.9"/>
+<!-- Quduq halqalari (beton) -->
+<rect x="508" y="172" width="24" height="7" rx="2" fill="#546e7a"/>
+<rect x="508" y="192" width="24" height="7" rx="2" fill="#607d8b"/>
+<rect x="508" y="212" width="24" height="7" rx="2" fill="#546e7a"/>
+<rect x="508" y="232" width="24" height="7" rx="2" fill="#607d8b"/>
+<rect x="508" y="252" width="24" height="7" rx="2" fill="#546e7a"/>
+<rect x="508" y="272" width="24" height="7" rx="2" fill="#607d8b"/>
+<rect x="508" y="310" width="24" height="7" rx="2" fill="#546e7a"/>
+<rect x="508" y="340" width="24" height="7" rx="2" fill="#607d8b"/>
+<rect x="508" y="370" width="24" height="7" rx="2" fill="#546e7a"/>
+<rect x="508" y="425" width="24" height="7" rx="2" fill="#455a64"/>
+<rect x="508" y="455" width="24" height="7" rx="2" fill="#455a64"/>
+<rect x="508" y="490" width="24" height="7" rx="2" fill="#455a64"/>
+<!-- Quduq boshi (teper) -->
+<rect x="504" y="152" width="32" height="14" rx="5" fill="#37474f"/>
+<rect x="506" y="154" width="28" height="10" rx="3" fill="#546e7a"/>
+<!-- Naporli suv qudiqga kirish oqimi -->
+<line x1="511" y1="465" x2="478" y2="465" stroke="#80d8ff" stroke-width="3" marker-end="url(#arr_r)"/>
+<line x1="529" y1="471" x2="562" y2="471" stroke="#80d8ff" stroke-width="3"/>
+
+<!-- ============ ARTEZIAN FONTAN ============ -->
+<!-- Quduqdan suv ko'tarilishi -->
+<rect x="516" y="95" width="8" height="60" fill="url(#fontan_g)" opacity="0.9"/>
+<!-- Suvning yorilishi -->
+<ellipse cx="520" cy="93" rx="12" ry="5" fill="#00e5ff" opacity="0.8"/>
+<!-- Fontan tarqalishi -->
+<path d="M520,85 Q492,52 476,22" fill="none" stroke="#00e5ff" stroke-width="3.5" opacity="0.85"/>
+<path d="M520,85 Q548,52 564,22" fill="none" stroke="#00e5ff" stroke-width="3.5" opacity="0.85"/>
+<path d="M520,85 Q506,48 500,15" fill="none" stroke="#4fc3f7" stroke-width="3" opacity="0.8"/>
+<path d="M520,85 Q534,48 540,15" fill="none" stroke="#4fc3f7" stroke-width="3" opacity="0.8"/>
+<path d="M520,85 Q520,44 520,10" fill="none" stroke="#00bcd4" stroke-width="2.5" opacity="0.75"/>
+<path d="M520,85 Q484,55 465,35" fill="none" stroke="#4fc3f7" stroke-width="2" opacity="0.6"/>
+<path d="M520,85 Q556,55 575,35" fill="none" stroke="#4fc3f7" stroke-width="2" opacity="0.6"/>
+<!-- Fontan tomchilari (katta) -->
+<circle cx="476" cy="20" r="7" fill="url(#water_drop)" opacity="0.9" filter="url(#glow)"/>
+<circle cx="564" cy="20" r="7" fill="url(#water_drop)" opacity="0.9" filter="url(#glow)"/>
+<circle cx="500" cy="12" r="6" fill="url(#water_drop)" opacity="0.85"/>
+<circle cx="540" cy="12" r="6" fill="url(#water_drop)" opacity="0.85"/>
+<circle cx="520" cy="8" r="5" fill="#80deea" opacity="0.9"/>
+<!-- Kichik tomchilar -->
+<circle cx="462" cy="32" r="4" fill="#4fc3f7" opacity="0.7"/>
+<circle cx="578" cy="32" r="4" fill="#4fc3f7" opacity="0.7"/>
+<circle cx="486" cy="5" r="3.5" fill="#29b6f6" opacity="0.65"/>
+<circle cx="554" cy="5" r="3.5" fill="#29b6f6" opacity="0.65"/>
+<circle cx="508" cy="3" r="3" fill="#80deea" opacity="0.7"/>
+<circle cx="532" cy="2" r="3" fill="#80deea" opacity="0.7"/>
+<!-- Eng kichik tomchilar -->
+<circle cx="448" cy="18" r="2.5" fill="#4fc3f7" opacity="0.55"/>
+<circle cx="592" cy="18" r="2.5" fill="#4fc3f7" opacity="0.55"/>
+<circle cx="470" cy="42" r="2" fill="#29b6f6" opacity="0.5"/>
+<circle cx="570" cy="42" r="2" fill="#29b6f6" opacity="0.5"/>
+
+<!-- ============ PIEZOMETRlK SATH ============ -->
+<line x1="520" y1="88" x2="820" y2="88" stroke="#69f0ae" stroke-width="2" stroke-dasharray="12,6" opacity="0.8"/>
+<line x1="520" y1="88" x2="220" y2="88" stroke="#69f0ae" stroke-width="2" stroke-dasharray="12,6" opacity="0.8"/>
+<!-- Piezometrik belgisi -->
+<circle cx="520" cy="88" r="5" fill="#69f0ae"/>
+
+<!-- ============ QATLAM CHEGARALARI ============ -->
+<line x1="0" y1="200" x2="1000" y2="200" stroke="#4e342e" stroke-width="1.5" opacity="0.4"/>
+<line x1="0" y1="365" x2="1000" y2="365" stroke="#3e2723" stroke-width="2.5"/>
+<line x1="0" y1="410" x2="1000" y2="410" stroke="#3e2723" stroke-width="2.5"/>
+<line x1="0" y1="520" x2="1000" y2="520" stroke="#263238" stroke-width="3"/>
+<line x1="0" y1="565" x2="1000" y2="565" stroke="#111" stroke-width="3"/>
+
+
+<!-- ============ QATLAM TEGLARI (chap tomonda) ============ -->
+<!-- Rangli qatlamlar teglari - vertikal yozuvlar -->
+<rect x="0" y="200" width="5" height="95" fill="#c8913a"/>
+<rect x="0" y="295" width="5" height="70" fill="#29b6f6"/>
+<rect x="0" y="365" width="5" height="45" fill="#8d6e63"/>
+<rect x="0" y="410" width="5" height="110" fill="#1565c0"/>
+<rect x="0" y="520" width="5" height="45" fill="#546e7a"/>
+<rect x="0" y="565" width="5" height="85" fill="#212121"/>
+
+<!-- ============ LEGENDA ============ -->
+<rect x="0" y="648" width="1000" height="2" fill="#263238"/>
+
+
+</svg>
