@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMI Taqdimot - Hoffmeister Klarnet Konserti</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: 'Georgia', serif; background:#1a1a2e; color:#fff; overflow:hidden; }
+
+/* SLAYD TUZILISHI */
+.slideshow { width:100vw; height:100vh; position:relative; }
+.slide {
+  position:absolute; top:0; left:0;
+  width:100%; height:100%;
+  display:none; flex-direction:column;
+  justify-content:center; align-items:center;
+  padding:60px 80px;
+  opacity:0; transition:opacity 0.6s ease;
+}
+.slide.active { display:flex; opacity:1; }
+
+/* NAVIGATSIYA */
+.nav {
+  position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
+  display:flex; gap:15px; z-index:100; align-items:center;
+}
+.nav button {
+  background:rgba(255,255,255,0.15); border:2px solid rgba(255,255,255,0.4);
+  color:#fff; padding:10px 28px; border-radius:30px; cursor:pointer;
+  font-size:15px; font-family:Georgia,serif;
+  transition:all 0.3s;
+}
+.nav button:hover { background:rgba(255,255,255,0.3); }
+.slide-counter {
+  color:rgba(255,255,255,0.7); font-size:14px; min-width:70px; text-align:center;
+}
+.dots { display:flex; gap:8px; }
+.dot {
+  width:10px; height:10px; border-radius:50%;
+  background:rgba(255,255,255,0.3); cursor:pointer; transition:all 0.3s;
+}
+.dot.active { background:#fff; transform:scale(1.3); }
+
+/* KLAVIATURA */
+.keyboard-hint {
+  position:fixed; bottom:10px; right:20px;
+  color:rgba(255,255,255,0.35); font-size:12px;
+}
+
+/* ============ SLAYD 1 - SARLAVHA ============ */
+.slide-1 {
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+}
+.slide-1 .institution {
+  font-size:13px; letter-spacing:2px; color:#a78bfa;
+  text-transform:uppercase; text-align:center; line-height:1.8;
+  margin-bottom:30px;
+}
+.slide-1 .main-title {
+  font-size:26px; font-weight:bold; text-align:center;
+  color:#fff; line-height:1.5; margin-bottom:20px;
+  text-shadow:0 0 30px rgba(167,139,250,0.5);
+  max-width:800px;
+}
+.slide-1 .subtitle {
+  font-size:15px; color:#c4b5fd; text-align:center;
+  margin-bottom:40px; font-style:italic;
+}
+.slide-1 .author-box {
+  background:rgba(255,255,255,0.08); border:1px solid rgba(167,139,250,0.3);
+  border-radius:12px; padding:20px 40px; text-align:center;
+}
+.slide-1 .author { font-size:17px; color:#e9d5ff; margin-bottom:8px; }
+.slide-1 .supervisor { font-size:14px; color:#a78bfa; }
+.slide-1 .year { font-size:14px; color:rgba(255,255,255,0.5); margin-top:8px; }
+.slide-1 .deco-line {
+  width:200px; height:2px; margin:25px auto;
+  background:linear-gradient(90deg, transparent, #a78bfa, transparent);
+}
+</style>
+
+
+/* ============ UMUMIY SLAYD STILLARI ============ */
+.slide-title {
+  font-size:32px; font-weight:bold;
+  text-align:center; margin-bottom:35px;
+  position:relative; padding-bottom:15px;
+}
+.slide-title::after {
+  content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+  width:80px; height:3px; border-radius:2px;
+}
+.content-grid { display:grid; gap:20px; width:100%; max-width:1000px; }
+.content-grid-2 { grid-template-columns:1fr 1fr; }
+.content-grid-3 { grid-template-columns:1fr 1fr 1fr; }
+
+.card {
+  background:rgba(255,255,255,0.08);
+  border-radius:12px; padding:22px 26px;
+  border-left:4px solid;
+  transition:transform 0.2s;
+}
+.card:hover { transform:translateY(-3px); }
+.card h3 { font-size:16px; margin-bottom:10px; }
+.card p, .card li { font-size:14px; line-height:1.7; color:rgba(255,255,255,0.85); }
+.card ul { padding-left:18px; }
+
+.timeline { width:100%; max-width:900px; }
+.tl-item {
+  display:flex; gap:20px; align-items:flex-start;
+  margin-bottom:18px; position:relative;
+}
+.tl-year {
+  min-width:70px; font-size:16px; font-weight:bold;
+  padding-top:2px;
+}
+.tl-dot {
+  width:14px; height:14px; border-radius:50%;
+  margin-top:4px; flex-shrink:0;
+}
+.tl-text { font-size:14px; line-height:1.6; color:rgba(255,255,255,0.85); }
+
+.highlight-box {
+  border-radius:12px; padding:18px 24px;
+  margin:10px 0; font-size:15px; line-height:1.7;
+}
+.quote {
+  border-left:4px solid; padding:15px 20px;
+  border-radius:0 10px 10px 0; font-style:italic;
+  font-size:15px; line-height:1.7;
+  background:rgba(255,255,255,0.06);
+}
+.badge {
+  display:inline-block; padding:4px 12px;
+  border-radius:20px; font-size:12px; font-weight:bold;
+  margin:3px;
+}
+
+/* RANG SXEMALAR - har slayd uchun */
+.slide-2  { background:linear-gradient(135deg, #0d1b2a, #1b2838, #162032); }
+.slide-3  { background:linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); }
+.slide-4  { background:linear-gradient(135deg, #0d2137, #113355, #0a1f3d); }
+.slide-5  { background:linear-gradient(135deg, #1a0a2e, #2d1b69, #1a0a2e); }
+.slide-6  { background:linear-gradient(135deg, #0a2e1a, #0d3b20, #0a2e1a); }
+.slide-7  { background:linear-gradient(135deg, #2e1a0a, #3b2510, #2e1a0a); }
+.slide-8  { background:linear-gradient(135deg, #0f0c29, #1a0e3d, #0f0c29); }
+.slide-9  { background:linear-gradient(135deg, #1a0a0a, #3d1515, #1a0a0a); }
+.slide-10 { background:linear-gradient(135deg, #0a1a2e, #0d2845, #0a1a2e); }
+.slide-11 { background:linear-gradient(135deg, #0a2e2e, #0d3b3b, #0a2e2e); }
+.slide-12 { background:linear-gradient(135deg, #1a1a0a, #2e2e0d, #1a1a0a); }
+.slide-13 { background:linear-gradient(135deg, #2e0a2e, #450d45, #2e0a2e); }
+.slide-14 { background:linear-gradient(135deg, #0d1117, #161b22, #0d1117); }
+
+/* RANG AKSENT LINIYALARI */
+.slide-2  .slide-title::after { background:#38bdf8; }
+.slide-3  .slide-title::after { background:#818cf8; }
+.slide-4  .slide-title::after { background:#60a5fa; }
+.slide-5  .slide-title::after { background:#c084fc; }
+.slide-6  .slide-title::after { background:#4ade80; }
+.slide-7  .slide-title::after { background:#fb923c; }
+.slide-8  .slide-title::after { background:#a78bfa; }
+.slide-9  .slide-title::after { background:#f87171; }
+.slide-10 .slide-title::after { background:#34d399; }
+.slide-11 .slide-title::after { background:#22d3ee; }
+.slide-12 .slide-title::after { background:#fbbf24; }
+.slide-13 .slide-title::after { background:#e879f9; }
+.slide-14 .slide-title::after { background:#94a3b8; }
+
+.accent-blue   { color:#38bdf8; }
+.accent-purple { color:#c084fc; }
+.accent-green  { color:#4ade80; }
+.accent-orange { color:#fb923c; }
+.accent-red    { color:#f87171; }
+.accent-teal   { color:#22d3ee; }
+.accent-yellow { color:#fbbf24; }
+.accent-pink   { color:#e879f9; }
+.accent-violet { color:#818cf8; }
+
+.big-number {
+  font-size:52px; font-weight:bold; line-height:1;
+  margin-bottom:5px;
+}
+.big-label { font-size:13px; color:rgba(255,255,255,0.6); }
+
+.icon { font-size:32px; margin-bottom:10px; display:block; }
+
+
+</style>
+</head>
+<body>
+<div class="slideshow" id="slideshow">
+
+<!-- ===== SLAYD 1: SARLAVHA ===== -->
+<div class="slide slide-1 active" id="slide-1">
+  <div class="slide-1 institution" style="position:absolute;top:0;left:0;right:0;padding:15px;background:rgba(0,0,0,0.3);font-size:11px;">
+    O'ZBEKISTON OLIY TA'LIM, FAN VA INNOVATSIYALAR VAZIRLIGI &nbsp;|&nbsp;
+    O'ZBEKISTON DAVLAT KONSERVATORIYASI &nbsp;|&nbsp;
+    «CHOLG'U IJROCHILIGI» FAKULTETI &nbsp;|&nbsp;
+    «PUFLAMA VA ZARBLI CHOLG'ULAR» KAFEDRASI
+  </div>
+  <div style="text-align:center; margin-top:30px;">
+    <div style="font-size:50px; margin-bottom:15px;">🎵</div>
+    <div class="main-title">
+      FRANS ANTON XOFFMAYSTERNING<br>
+      <span style="color:#a78bfa;">KLARNET VA ORKESTR UCHUN</span><br>
+      B-DUR KONSERTINING<br>
+      IJRO VA NAZARIY TAHLILI
+    </div>
+    <div class="deco-line"></div>
+    <div class="subtitle">
+      «5150700 – Cholg'u ijrochiligi (puflama va zarbli cholg'u ijrochiligi)» yo'nalishi<br>
+      Bakalavr darajasini olish uchun yozilgan Bitiruv Malakaviy Ish
+    </div>
+    <div class="author-box">
+      <div class="author">👤 Muxtorjonov Doniyorbek Alisher o'g'li</div>
+      <div class="supervisor">🎓 Ilmiy rahbar: Dotsent v.b. Niyazov Y.Y</div>
+      <div class="year">Toshkent — 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLAYD 2: MUNDARIJA ===== -->
+<div class="slide slide-2" id="slide-2">
+  <div class="slide-title" style="color:#38bdf8;">📋 MUNDARIJA</div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; width:100%; max-width:1000px;">
+    <div>
+      <div class="card" style="border-color:#38bdf8; margin-bottom:15px;">
+        <h3 class="accent-blue">I BOB</h3>
+        <ul style="list-style:none; padding:0;">
+          <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.1); font-size:14px;">🎼 1.1 Klarnet tarixi va rivojlanishi</li>
+          <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.1); font-size:14px;">🎻 Klarnet cholg'ulari oilasi</li>
+          <li style="padding:6px 0; font-size:14px;">🌍 1.2 Jahon repertuarida klarnet asarlari</li>
+        </ul>
+      </div>
+      <div style="background:rgba(56,189,248,0.1); border-radius:10px; padding:15px; text-align:center;">
+        <div class="big-number accent-blue">2</div>
+        <div class="big-label">Asosiy bob</div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="border-color:#c084fc; margin-bottom:15px;">
+        <h3 class="accent-purple">II BOB</h3>
+        <ul style="list-style:none; padding:0;">
+          <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.1); font-size:14px;">👨‍🎨 2.1 F.A. Xoffmayster hayoti va ijodi</li>
+          <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.1); font-size:14px;">🎹 2.2 Konsert tahlili: Allegro</li>
+          <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.1); font-size:14px;">🎶 Konsert tahlili: Adagio</li>
+          <li style="padding:6px 0; font-size:14px;">🎺 Konsert tahlili: Rondo</li>
+        </ul>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <div style="background:rgba(192,132,252,0.1); border-radius:10px; padding:12px; text-align:center;">
+          <div class="big-number accent-purple" style="font-size:36px;">4</div>
+          <div class="big-label">Paragraf</div>
+        </div>
+        <div style="background:rgba(192,132,252,0.1); border-radius:10px; padding:12px; text-align:center;">
+          <div class="big-number accent-purple" style="font-size:36px;">66+</div>
+          <div class="big-label">Sahifa</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLAYD 3: TADQIQOT MAQSADI ===== -->
+<div class="slide slide-3" id="slide-3">
+  <div class="slide-title" style="color:#818cf8;">🎯 TADQIQOT MAQSADI VA VAZIFALARI</div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:22px; width:100%; max-width:1000px;">
+    <div>
+      <div class="card" style="border-color:#818cf8; height:100%;">
+        <h3 class="accent-violet">🎯 Maqsad</h3>
+        <p style="margin-top:10px;">F.A. Xoffmaysterning <strong style="color:#c4b5fd;">B-dur konsertini</strong> musiqiy-nazariy va ijrochilik jihatidan tahlil qilish, asarning badiiy-estetik ahamiyatini ochib berish va uni ijrochilik amaliyotida qo'llash masalalarini yoritish.</p>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div style="background:rgba(129,140,248,0.12); border-radius:10px; padding:14px; border-left:3px solid #818cf8;">
+        <span style="color:#818cf8; font-weight:bold;">📌 Vazifa 1:</span>
+        <span style="font-size:13px;"> Klarnet ijrochilik imkoniyatlarini ilmiy o'rganish</span>
+      </div>
+      <div style="background:rgba(129,140,248,0.12); border-radius:10px; padding:14px; border-left:3px solid #818cf8;">
+        <span style="color:#818cf8; font-weight:bold;">📌 Vazifa 2:</span>
+        <span style="font-size:13px;"> Asarning shakliy tuzilishi va garmonik tilini tahlil qilish</span>
+      </div>
+      <div style="background:rgba(129,140,248,0.12); border-radius:10px; padding:14px; border-left:3px solid #818cf8;">
+        <span style="color:#818cf8; font-weight:bold;">📌 Vazifa 3:</span>
+        <span style="font-size:13px;"> Texnik murakkabliklar va interpretatsion masalalarni aniqlash</span>
+      </div>
+      <div style="background:rgba(129,140,248,0.12); border-radius:10px; padding:14px; border-left:3px solid #818cf8;">
+        <span style="color:#818cf8; font-weight:bold;">📌 Vazifa 4:</span>
+        <span style="font-size:13px;"> Klassik repertuarning pedagogik ahamiyatini yoritish</span>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:20px; background:rgba(129,140,248,0.08); border-radius:12px; padding:15px 25px; max-width:1000px; width:100%; text-align:center;">
+    <span style="font-size:13px; color:rgba(255,255,255,0.7);">
+      <strong class="accent-violet">Ob'ekt:</strong> F.A. Xoffmaysterning B-dur konserti &nbsp;|&nbsp;
+      <strong class="accent-violet">Predmet:</strong> Konsertning ijrochilik va nazariy xususiyatlari
+    </span>
+  </div>
+</div>
+
+<!-- ===== SLAYD 4: KLARNET TARIXI ===== -->
+<div class="slide slide-4" id="slide-4">
+  <div class="slide-title" style="color:#60a5fa;">🎼 KLARNET — TARIXI VA RIVOJLANISHI</div>
+  <div class="timeline" style="max-width:950px;">
+    <div class="tl-item">
+      <div class="tl-year accent-blue">1690</div>
+      <div class="tl-dot" style="background:#60a5fa; margin-top:6px;"></div>
+      <div class="tl-text"><strong style="color:#93c5fd;">J. Denner (Nürnberg)</strong> — Shalumo asosida klarnet yaratdi. 2 klapan, duodecima oralig'ida registr o'tishi</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year accent-blue">1753</div>
+      <div class="tl-dot" style="background:#60a5fa; margin-top:6px;"></div>
+      <div class="tl-text"><strong style="color:#93c5fd;">Denis Didro</strong> ensiklopediyasida «clarinette» atamasi birinchi marta qayd etildi</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year accent-blue">1790</div>
+      <div class="tl-dot" style="background:#60a5fa; margin-top:6px;"></div>
+      <div class="tl-text"><strong style="color:#93c5fd;">J.X. Lefèvre</strong> — 6 klapanli klassik model. Klarnet akademik cholg'u sifatida shakllandi</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year accent-blue">1812</div>
+      <div class="tl-dot" style="background:#60a5fa; margin-top:6px;"></div>
+      <div class="tl-text"><strong style="color:#93c5fd;">Ivan Müller</strong> — 13 klapanli tizim. Ijrochilik imkoniyatlari sezilarli kengaydi</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year accent-blue">1843</div>
+      <div class="tl-dot" style="background:#60a5fa; margin-top:6px;"></div>
+      <div class="tl-text"><strong style="color:#93c5fd;">H. Klose + L.A. Buffet</strong> — Böhm tizimi. 17 klapan, 6 halqa. Zamonaviy «fransuz klarneti»</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year accent-blue">XIX asr</div>
+      <div class="tl-dot" style="background:#60a5fa; margin-top:6px;"></div>
+      <div class="tl-text"><strong style="color:#93c5fd;">Oskar Oehler</strong> — 22 klapanli «nemis tizimi». Karl Baermann bilan hamkorlikda</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLAYD 5: KLARNET OILASI ===== -->
+<div class="slide slide-5" id="slide-5">
+  <div class="slide-title" style="color:#c084fc;">🎻 KLARNET OILASI VA AKUSTIK XUSUSIYATLARI</div>
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:15px; width:100%; max-width:1000px; margin-bottom:18px;">
+    <div class="card" style="border-color:#c084fc; text-align:center;">
+      <span class="icon">🎺</span>
+      <h3 class="accent-purple">Es Klarnet</h3>
+      <p>Kichik tersiya yuqori. Keskin, «qichqiriqsimon» tembr. Berlioz «Fantastik simfoniya»sida ilk qo'llanish</p>
+    </div>
+    <div class="card" style="border-color:#e879f9; text-align:center; border-width:3px;">
+      <span class="icon">⭐</span>
+      <h3 class="accent-pink">B♭ Klarnet</h3>
+      <p><strong>Asosiy cholg'u.</strong> Katta sekund past. Bemol tonalliklarda qulay. Eng keng tarqalgan</p>
+    </div>
+    <div class="card" style="border-color:#a78bfa; text-align:center;">
+      <span class="icon">🎵</span>
+      <h3 class="accent-violet">A Klarnet</h3>
+      <p>Kichik tersiya past. Yumshoq tembr. Diyezli tonalliklar uchun afzal</p>
+    </div>
+  </div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; width:100%; max-width:1000px;">
+    <div class="card" style="border-color:#4ade80;">
+      <h3 class="accent-green">🔊 Akustik xususiyat</h3>
+      <p style="margin-top:8px;">Silindrsimon kanal + yopiq og'iz qismi → havo ustuni <strong style="color:#86efac;">2 marta uzunroq</strong> rezonans. <em>Overblowing: oktava emas — duodecima (kvinta + oktava)!</em> Shu sababli «kvintlovchi» cholg'u.</p>
+    </div>
+    <div class="card" style="border-color:#fb923c;">
+      <h3 class="accent-orange">📊 Diapazon va imkoniyat</h3>
+      <ul style="margin-top:8px;">
+        <li>Mi kichik — Do uchinchi oktava (3,5+ oktava)</li>
+        <li>24 ta tovush teshigi (7 barmoq + 17 klapan)</li>
+        <li>Legato — fleyta bilan raqobatlasha oladi</li>
+        <li>Nafas: 35–45 soniya uzluksiz</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLAYD 6: JAHON REPERTUARI ===== -->
+<div class="slide slide-6" id="slide-6">
+  <div class="slide-title" style="color:#4ade80;">🌍 JAHON KOMPOZITORLIK MADANIYATIDA KLARNET</div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; width:100%; max-width:1000px;">
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div class="card" style="border-color:#4ade80;">
+        <h3 class="accent-green">🏛️ Klassitsizm davri</h3>
+        <p><strong style="color:#86efac;">W.A. Mozart:</strong> A-dur Konsert (K.622), A-dur Kvintet (K.581) — klarnetning akademik musiqadagi mavqeini belgiladi</p>
+      </div>
+      <div class="card" style="border-color:#22d3ee;">
+        <h3 class="accent-teal">🌹 Romantizm davri</h3>
+        <p><strong style="color:#67e8f9;">K.M. Weber:</strong> 2 ta konsert — virtuoz imkoniyatlar.<br>
+        <strong style="color:#67e8f9;">J. Brahms:</strong> Sonata va kvintet — psixologik chuqurlik</p>
+      </div>
+      <div class="card" style="border-color:#a78bfa;">
+        <h3 class="accent-violet">🎨 XX asr</h3>
+        <p>Debussy, Bartók, Prokofiev, Shostakovich — modernizm. Benny Goodman — jazz integratsiyasi</p>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div style="background:rgba(74,222,128,0.1); border-radius:12px; padding:20px; text-align:center;">
+        <div class="big-number accent-green">100+</div>
+        <div class="big-label">XVIII asr oxirida konsert yozgan bastakorlar</div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+        <div style="background:rgba(74,222,128,0.1); border-radius:10px; padding:15px; text-align:center;">
+          <div class="big-number accent-green" style="font-size:36px;">70+</div>
+          <div class="big-label">Hoffmeister fleyta asarlari</div>
+        </div>
+        <div style="background:rgba(74,222,128,0.1); border-radius:10px; padding:15px; text-align:center;">
+          <div class="big-number accent-green" style="font-size:36px;">10</div>
+          <div class="big-label">Simfonik orkestrda klarnet soni (Mahler)</div>
+        </div>
+      </div>
+      <div class="quote" style="border-color:#4ade80; color:rgba(255,255,255,0.85);">
+        «Klarnet XIX asrda orkestr tarkibidagi yordamchi cholg'u vazifasidan chiqib, yakkaxon konsert cholg'usiga aylandi»
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLAYD 7: HOFFMEISTER HAYOTI ===== -->
+<div class="slide slide-7" id="slide-7">
+  <div class="slide-title" style="color:#fb923c;">👨‍🎨 FRANZ ANTON HOFFMEISTER (1754–1812)</div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:22px; width:100%; max-width:1000px;">
+    <div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-year" style="color:#fb923c; font-size:14px;">1754</div>
+          <div class="tl-dot" style="background:#fb923c;"></div>
+          <div class="tl-text">Rotenburg (Baden-Württemberg) shahrida tug'ildi</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year" style="color:#fb923c; font-size:14px;">1768</div>
+          <div class="tl-dot" style="background:#fb923c;"></div>
+          <div class="tl-text">Venaga ko'chdi. Musiqa + yurispr​udensiya tahsili</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year" style="color:#fb923c; font-size:14px;">1784</div>
+          <div class="tl-dot" style="background:#fb923c;"></div>
+          <div class="tl-text">Venada yirik musiqa nashriyoti tashkil etdi</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year" style="color:#fb923c; font-size:14px;">1798</div>
+          <div class="tl-dot" style="background:#fb923c;"></div>
+          <div class="tl-text">F.L. Dulon bilan Germaniya gastrolida Leypsigga tashrif</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year" style="color:#fb923c; font-size:14px;">1800</div>
+          <div class="tl-dot" style="background:#fb923c;"></div>
+          <div class="tl-text">A. Kühnel bilan «Bureau de Musique» — keyinchalik <strong style="color:#fdba74;">Edition Peters</strong></div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-year" style="color:#fb923c; font-size:14px;">1812</div>
+          <div class="tl-dot" style="background:#fb923c;"></div>
+          <div class="tl-text">Venada vafot etdi. Ijodiy merosni qoldirdi</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div class="card" style="border-color:#fb923c;">
+        <h3 class="accent-orange">🎼 Ijodiy meros</h3>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">
+          <div style="text-align:center; background:rgba(251,146,60,0.1); border-radius:8px; padding:10px;">
+            <div style="font-size:28px; font-weight:bold; color:#fb923c;">~70</div>
+            <div style="font-size:11px; color:rgba(255,255,255,0.6);">Simfoniya</div>
+          </div>
+          <div style="text-align:center; background:rgba(251,146,60,0.1); border-radius:8px; padding:10px;">
+            <div style="font-size:28px; font-weight:bold; color:#fb923c;">50+</div>
+            <div style="font-size:11px; color:rgba(255,255,255,0.6);">Konsert</div>
+          </div>
+          <div style="text-align:center; background:rgba(251,146,60,0.1); border-radius:8px; padding:10px;">
+            <div style="font-size:28px; font-weight:bold; color:#fb923c;">9+</div>
+            <div style="font-size:11px; color:rgba(255,255,255,0.6);">Opera</div>
+          </div>
+          <div style="text-align:center; background:rgba(251,146,60,0.1); border-radius:8px; padding:10px;">
+            <div style="font-size:28px; font-weight:bold; color:#fb923c;">70+</div>
+            <div style="font-size:11px; color:rgba(255,255,255,0.6);">Fleyta asarlari</div>
+          </div>
+        </div>
+      </div>
+      <div class="quote" style="border-color:#fb923c;">
+        Mozart asarlarini nashr etgan do'sti. Bach, Haydn, Beethoven asarlari «Bureau de Musique» orqali Yevropaga tarqaldi.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLAYD 8: KONSERT UMUMIY TAHLIL ===== -->
+<div class="slide slide-8" id="slide-8">
+  <div class="slide-title" style="color:#a78bfa;">🎹 B-DUR KONSERT — UMUMIY TUZILISH</div>
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; width:100%; max-width:1000px; margin-bottom:18px;">
+    <div class="card" style="border-color:#60a5fa; text-align:center;">
+      <div style="font-size:40px;">I</div>
+      <h3 class="accent-blue" style="font-size:18px;">ALLEGRO</h3>
+      <p style="margin-top:8px;">Sonata-allegro shakli. Ekspozitsiya — Rivojlanish — Repriza</p>
+      <div style="margin-top:12px; background:rgba(96,165,250,0.15); border-radius:8px; padding:8px; font-size:12px;">B♭ major | Energiyali, tantanavor</div>
+    </div>
+    <div class="card" style="border-color:#34d399; text-align:center; border-width:3px;">
+      <div style="font-size:40px;">II</div>
+      <h3 class="accent-green" style="font-size:18px;">ADAGIO</h3>
+      <p style="margin-top:8px;">Lirik markaz. Kantilena xarakter. Solist ustunligi</p>
+      <div style="margin-top:12px; background:rgba(52,211,153,0.15); border-radius:8px; padding:8px; font-size:12px;">Yumshoq | Emotsional chuqurlik</div>
+    </div>
+    <div class="card" style="border-color:#f59e0b; text-align:center;">
+      <div style="font-size:40px;">III</div>
+      <h3 class="accent-yellow" style="font-size:18px;">RONDO</h3>
+      <p style="margin-top:8px;">Allegro. Refren + epizodlar. Virtuoz yakunlanish</p>
+      <div style="margin-top:12px; background:rgba(245,158,11,0.15); border-radius:8px; padding:8px; font-size:12px;">B♭ major | Bayramona xarakter</div>
+    </div>
+  </div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; width:100%; max-width:1000px;">
+    <div class="card" style="border-color:#a78bfa;">
+      <h3 class="accent-violet">🎭 Klassik konsert xususiyatlari</h3>
+      <ul style="margin-top:8px;">
+        <li>Solist va orkestr o'rtasida dialog tamoyili</li>
+        <li>Klarnet — yetakchi ifodaviy markaz</li>
+        <li>Orkestr — garmonik va ritmik tayanch</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color:#e879f9;">
+      <h3 class="accent-pink">⚡ Uslubiy o'tish</h3>
+      <p style="margin-top:8px;">Klassitsizm (shakl aniqligi, muvozanat) + Erta romantizm (emotsional kenglik, ifodaviylik) elementlarini uyg'unlashtiradi</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLAYD 9: ALLEGRO TAHLILI ===== -->
+<div class="slide slide-9" id="slide-9">
+  <div class="slide-title" style="color:#f87171;">I QISM — ALLEGRO: TAHLIL</div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; width:100%; max-width:1000px;">
+    <div style="display:flex; flex-direction:column; gap:14px;">
+      <div class="card" style="border-color:#f87171;">
+        <h3 class="accent-red">📐 Shakl tuzilishi</h3>
+        <div style="margin-top:10px;">
+          <div style="background:rgba(248,113,113,0.15); border-radius:8px; padding:10px; margin-bottom:8px;">
+            <strong style="color:#fca5a5;">Ekspozitsiya:</strong> Asosiy mavzu (B♭, tantanavor) + Yordamchi mavzu (lirik, kontrast)
+          </div>
+          <div style="background:rgba(248,113,113,0.15); border-radius:8px; padding:10px; margin-bottom:8px;">
+            <strong style="color:#fca5a5;">Rivojlanish:</strong> Modulyatsion o'zgarishlar, motivlar fragmentatsiyasi, keskinlashuv
+          </div>
+          <div style="background:rgba(248,113,113,0.15); border-radius:8px; padding:10px;">
+            <strong style="color:#fca5a5;">Repriza:</strong> Asosiy tonallikka qaytish, tema mustahkamlanishi
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px;">
+      <div class="card" style="border-color:#f87171;">
+        <h3 class="accent-red">🎯 Ijrochilik maslahatlar</h3>
+        <ul style="margin-top:10px; font-size:13px;">
+          <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);">✅ Legato/staccato aniq farqlash</li>
+          <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);">✅ Romantik ifodadan qochish (klassik uslub!)</li>
+          <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);">✅ Nafas — musiqiy sintaksisga mos</li>
+          <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);">✅ Registrlar o'rtasida silliq o'tish</li>
+          <li style="padding:5px 0;">✅ Temp barqarorligi — ortiqcha rubato yo'q</li>
+        </ul>
+      </div>
+      <div style="background:rgba(248,113,113,0.1); border-radius:10px; padding:14px; text-align:center;">
+        <div style="font-size:13px; color:rgba(255,255,255,0.7);">Texnik murakkabliklar:</div>
+        <div style="margin-top:6px; display:flex; flex-wrap:wrap; gap:6px; justify-content:center;">
+          <span class="badge" style="background:rgba(248,113,113,0.2); color:#fca5a5; border:1px solid #f87171;">Virtuoz passajlar</span>
+          <span class="badge" style="background:rgba(248,113,113,0.2); color:#fca5a5; border:1px solid #f87171;">Keng sakrashlar</span>
+          <span class="badge" style="background:rgba(248,113,113,0.2); color:#fca5a5; border:1px solid #f87171;">Xromatik chiziqlar</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLAYD 10: ADAGIO TAHLILI ===== -->
+<div class="slide slide-10" id="slide-10">
+  <div class="slide-title" style="color:#34d399;">II QISM — ADAGIO: LIRIK MARKAZ</div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; width:100%; max-width:1000px;">
+    <div style="display:flex; flex-direction:column; gap:14px;">
+      <div class="card" style="border-color:#34d399;">
+        <h3 class="accent-green">🎶 Musiqiy xarakter</h3>
+        <p style="margin-top:10px; line-height:1.8;">
+          Butun konsert dramaturgiyasida <strong style="color:#6ee7b7;">lirik markaz</strong> vazifasi.<br><br>
+          Klarnetning <em>kantilena</em> imkoniyatlari to'liq namoyon bo'ladi.<br><br>
+          Vokal tabiatga yaqin — nafasli, uzluksiz melodik chiziq.<br><br>
+          Orkestr: <em>hamrohlik</em> (accompaniment) funksiyasi.
+        </p>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px;">
+      <div class="card" style="border-color:#34d399;">
+        <h3 class="accent-green">🎯 Ijrochilik talablari</h3>
+        <ul style="margin-top:10px; font-size:13px;">
+          <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.1);">🌬️ <strong>Nafas nazorati</strong> — keng frazalarni buzmasdan ijro</li>
+          <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.1);">🎵 <strong>Kantilena sifati</strong> — «qo'shiqsimon» tembr</li>
+          <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.1);">📊 <strong>Dinamik</strong> — pp–mf diapazoni, tabiiy o'zgarish</li>
+          <li style="padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.1);">🎭 <strong>Rubato</strong> — klassik intizomni buzmasdan nozik erkinlik</li>
+          <li style="padding:6px 0;">🎯 <strong>Intonatsiya</strong> — yuqori registrda barqarorlik</li>
+        </ul>
+      </div>
+      <div class="quote" style="border-color:#34d399;">
+        Bu qismda texnik virtuozlik emas — <strong style="color:#6ee7b7;">ohangning ichki mazmuni va emotsional chuqurligi</strong> ustuvor ahamiyat kasb etadi.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLAYD 11: RONDO TAHLILI ===== -->
+<div class="slide slide-11" id="slide-11">
+  <div class="slide-title" style="color:#22d3ee;">III QISM — RONDO (ALLEGRO): VIRTUOZ YAKUN</div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; width:100%; max-width:1000px;">
+    <div>
+      <div class="card" style="border-color:#22d3ee; margin-bottom:14px;">
+        <h3 class="accent-teal">🔄 Rondo shakli</h3>
+        <div style="margin-top:10px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <span style="background:rgba(34,211,238,0.2); padding:6px 12px; border-radius:20px; color:#67e8f9; font-size:13px;">Refren (A)</span>
+          <span style="color:rgba(255,255,255,0.4);">→</span>
+          <span style="background:rgba(34,211,238,0.1); padding:6px 12px; border-radius:20px; color:#a5f3fc; font-size:13px;">Epizod 1</span>
+          <span style="color:rgba(255,255,255,0.4);">→</span>
+          <span style="background:rgba(34,211,238,0.2); padding:6px 12px; border-radius:20px; color:#67e8f9; font-size:13px;">Refren (A)</span>
+          <span style="color:rgba(255,255,255,0.4);">→</span>
+          <span style="background:rgba(34,211,238,0.1); padding:6px 12px; border-radius:20px; color:#a5f3fc; font-size:13px;">Epizod 2</span>
+          <span style="color:rgba(255,255,255,0.4);">→</span>
+          <span style="background:rgba(34,211,238,0.2); padding:6px 12px; border-radius:20px; color:#67e8f9; font-size:13px;">Koda</span>
+        </div>
+        <p style="margin-top:12px; font-size:13px;">Asosiy tema: <strong style="color:#67e8f9;">yorqin, energiyali, ritmik aniq</strong>. Epizodlar: tonal kontrastlar.</p>
+      </div>
+      <div class="card" style="border-color:#22d3ee;">
+        <h3 class="accent-teal">⚡ Texnik murakkabliklar</h3>
+        <ul style="margin-top:8px; font-size:13px;">
+          <li>Tez tempdagi virtuoz passajlar</li>
+          <li>Arpeggiolar va registrlararo sakrashlar</li>
+          <li>Staccato/legato artikulyatsion kontrast</li>
+          <li>Ansambl bilan sinxron muvozanat</li>
+        </ul>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px;">
+      <div class="card" style="border-color:#22d3ee;">
+        <h3 class="accent-teal">🎯 5 asosiy ijrochilik shart</h3>
+        <div style="margin-top:10px; display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; gap:10px; align-items:center;">
+            <span style="background:#22d3ee; color:#000; border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; flex-shrink:0;">1</span>
+            <span style="font-size:13px;">Temp barqarorligi — ortiqcha tezlashish yo'q</span>
+          </div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <span style="background:#22d3ee; color:#000; border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; flex-shrink:0;">2</span>
+            <span style="font-size:13px;">Barmoq chaqqonligi va artikulyatsion aniqlik</span>
+          </div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <span style="background:#22d3ee; color:#000; border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; flex-shrink:0;">3</span>
+            <span style="font-size:13px;">Dinamik kontrastlar — tabiiyi, keskinliksiz</span>
+          </div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <span style="background:#22d3ee; color:#000; border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; flex-shrink:0;">4</span>
+            <span style="font-size:13px;">Orkestr fakturasini bosib ketmaslik</span>
+          </div>
+          <div style="display:flex; gap:10px; align-items:center;">
+            <span style="background:#22d3ee; color:#000; border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; flex-shrink:0;">5</span>
+            <span style="font-size:13px;">Yakuniy epizod — tantanavor, bayramona xarakter</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLAYD 12: KLARNET PARTIYASI TAHLILI ===== -->
+<div class="slide slide-12" id="slide-12">
+  <div class="slide-title" style="color:#fbbf24;">🎺 KLARNET PARTIYASI VA ORKESTR FAKTURASI</div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:22px; width:100%; max-width:1000px;">
+    <div>
+      <div class="card" style="border-color:#fbbf24; margin-bottom:15px;">
+        <h3 class="accent-yellow">🎵 Klarnet partiyasi xususiyatlari</h3>
+        <ul style="margin-top:10px; font-size:13px;">
+          <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);">Tabiiy diapazonni to'liq qamrab olish</li>
+          <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);">Asosan <strong style="color:#fcd34d;">legato</strong> uslubida qurilgan melodik chiziqlar</li>
+          <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);">Kantilena + virtuozlik uyg'unligi</li>
+          <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);">Idiomatik yozuv — cholg'uning tabiiy imkoniyatlariga mos</li>
+          <li style="padding:5px 0;">Dinamik diapazon: <strong style="color:#fcd34d;">p — f</strong></li>
+        </ul>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <div style="background:rgba(251,191,36,0.1); border-radius:10px; padding:14px; text-align:center;">
+          <div style="font-size:24px;">🎭</div>
+          <div style="font-size:12px; color:#fcd34d; margin-top:5px;">Solistik funksiya</div>
+        </div>
+        <div style="background:rgba(251,191,36,0.1); border-radius:10px; padding:14px; text-align:center;">
+          <div style="font-size:24px;">💬</div>
+          <div style="font-size:12px; color:#fcd34d; margin-top:5px;">Dialog tamoyili</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="border-color:#fbbf24; margin-bottom:15px;">
+        <h3 class="accent-yellow">🎼 Orkestr 3 vazifa bajaradi</h3>
+        <div style="margin-top:10px; display:flex; flex-direction:column; gap:8px;">
+          <div style="background:rgba(251,191,36,0.1); border-radius:8px; padding:10px; display:flex; gap:10px; align-items:center;">
+            <span style="font-size:20px;">🏗️</span>
+            <span style="font-size:13px;"><strong style="color:#fcd34d;">Garmonik poydevor</strong> — tonal barqarorlik</span>
+          </div>
+          <div style="background:rgba(251,191,36,0.1); border-radius:8px; padding:10px; display:flex; gap:10px; align-items:center;">
+            <span style="font-size:20px;">🥁</span>
+            <span style="font-size:13px;"><strong style="color:#fcd34d;">Ritmik tayanch</strong> — metroritmik aniqlik</span>
+          </div>
+          <div style="background:rgba(251,191,36,0.1); border-radius:8px; padding:10px; display:flex; gap:10px; align-items:center;">
+            <span style="font-size:20px;">💬</span>
+            <span style="font-size:13px;"><strong style="color:#fcd34d;">Dialog</strong> — qisqa replika epizodlari</span>
+          </div>
+        </div>
+      </div>
+      <div class="quote" style="border-color:#fbbf24; font-size:13px;">
+        «Call and response» tamoyili — klassik konsert janriga xos orkestr va solist o'rtasidagi dialogik munosabat
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ===== SLAYD 13: XULOSA ===== -->
+<div class="slide slide-13" id="slide-13">
+  <div class="slide-title" style="color:#e879f9;">✅ XULOSA</div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; width:100%; max-width:1000px;">
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div class="card" style="border-color:#e879f9;">
+        <h3 class="accent-pink">📌 Asosiy natijalar</h3>
+        <ul style="margin-top:10px; font-size:13px;">
+          <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);">Klarnetning XVII–XVIII asr evolyutsiyasi ilmiy asoslab berildi</li>
+          <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);">Jahon repertuaridagi o'rni tizimli tahlil qilindi</li>
+          <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);">Hoffmeister konsertining 3 qismi nazariy tahlil qilindi</li>
+          <li style="padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.1);">Ijrochilik muammolari va yechimlari aniqlandi</li>
+          <li style="padding:5px 0;">Pedagogik amaliyot uchun tavsiyalar ishlab chiqildi</li>
+        </ul>
+      </div>
+      <div class="card" style="border-color:#e879f9;">
+        <h3 class="accent-pink">🎓 Ilmiy yangilik</h3>
+        <p style="margin-top:8px; font-size:13px;">Klassitsizm davri transkripsiyalarining keng qamrovli tizimli tasnifi. Zamonaviy ijro amaliyotida klassik repertuardan samarali foydalanish yo'llari yoritildi.</p>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:12px;">
+      <div class="card" style="border-color:#e879f9;">
+        <h3 class="accent-pink">⭐ Asarning ahamiyati</h3>
+        <p style="margin-top:10px; font-size:13px; line-height:1.8;">
+          B-dur konsert — <strong style="color:#f0abfc;">klassitsizm va erta romantizm</strong> o'rtasidagi uslubiy ko'prik.<br><br>
+          Klarnet ijrochilik maktablarida <strong style="color:#f0abfc;">pedagogik va konsert</strong> repertuarining muhim namunasi.<br><br>
+          Solist va orkestr <strong style="color:#f0abfc;">dialog tamoyili</strong>ning yetuk ifodalanishi.
+        </p>
+      </div>
+      <div style="background:rgba(232,121,249,0.1); border-radius:12px; padding:18px; text-align:center; border:1px solid rgba(232,121,249,0.3);">
+        <div style="font-size:36px; margin-bottom:8px;">🏆</div>
+        <p style="font-size:14px; color:#f0abfc; line-height:1.6;">
+          Mazkur tadqiqot klarnet ijrochilik san'atini ilmiy asosda o'rganish va ijrochilik talqinini chuqurlashtirishda muhim <strong>nazariy-metodik asos</strong> bo'lib xizmat qiladi
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SLAYD 14: ADABIYOTLAR ===== -->
+<div class="slide slide-14" id="slide-14">
+  <div class="slide-title" style="color:#94a3b8;">📚 FOYDALANILGAN ADABIYOTLAR</div>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; width:100%; max-width:1000px;">
+    <div>
+      <div class="card" style="border-color:#475569; margin-bottom:14px;">
+        <h3 style="color:#94a3b8; font-size:14px;">🇺🇿 O'zbek manbalar</h3>
+        <ul style="margin-top:8px; font-size:12px; line-height:1.8; color:rgba(255,255,255,0.75);">
+          <li>Matyoqubov B. Damli va zarbli cholg'ular (2004)</li>
+          <li>Murtazoev B. Saksafon darsligi (2004)</li>
+          <li>Begmatov S. Maqom surnay yo'llari (2004)</li>
+        </ul>
+      </div>
+      <div class="card" style="border-color:#475569;">
+        <h3 style="color:#94a3b8; font-size:14px;">🇷🇺 Rus tili manbalar</h3>
+        <ul style="margin-top:8px; font-size:12px; line-height:1.8; color:rgba(255,255,255,0.75);">
+          <li>Диков Б.А. Методика обучения игре на кларнете (2014)</li>
+          <li>Розанов С.В. Школа игры на кларнете (1996)</li>
+          <li>Рыбаков К. Кларнет в перспективе времени (2004)</li>
+          <li>Карс А. История оркестровки (1989)</li>
+          <li>Анисимов Б.И. Практическое пособие (1979)</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="border-color:#475569; margin-bottom:14px;">
+        <h3 style="color:#94a3b8; font-size:14px;">📖 Asosiy metodologik hujjatlar</h3>
+        <ul style="margin-top:8px; font-size:12px; line-height:1.8; color:rgba(255,255,255,0.75);">
+          <li>O'zbekiston Respublikasi Konstitutsiyasi (1998)</li>
+          <li>«Ta'lim to'g'risida» Qonun (1997)</li>
+          <li>Kadrlar tayyorlash milliy dasturi (1997)</li>
+          <li>Mirziyoyev Sh. «Buyuk kelajagimizni...» (2017)</li>
+        </ul>
+      </div>
+      <div style="background:rgba(148,163,184,0.1); border-radius:12px; padding:18px; text-align:center; border:1px solid rgba(148,163,184,0.2);">
+        <div style="font-size:40px; margin-bottom:10px;">🙏</div>
+        <div style="font-size:18px; font-weight:bold; color:#e2e8f0; margin-bottom:8px;">E'TIBORINGIZ UCHUN</div>
+        <div style="font-size:14px; color:#94a3b8;">RAHMAT!</div>
+        <div style="margin-top:12px; font-size:13px; color:#64748b;">
+          Muxtorjonov Doniyorbek Alisher o'g'li<br>
+          Ilmiy rahbar: Dotsent v.b. Niyazov Y.Y<br>
+          Toshkent — 2026
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /slideshow -->
+
+
+<!-- NAVIGATSIYA -->
+<div class="nav">
+  <button onclick="changeSlide(-1)">◀ Oldingi</button>
+  <div class="dots" id="dots"></div>
+  <span class="slide-counter" id="counter">1 / 14</span>
+  <button onclick="changeSlide(1)">Keyingi ▶</button>
+</div>
+<div class="keyboard-hint">← → klavishlar yoki tugmalar bilan boshqaring</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const counter = document.getElementById('counter');
+const dotsContainer = document.getElementById('dots');
+let current = 0;
+const total = slides.length;
+
+// Dots yaratish
+for(let i=0; i<total; i++){
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.onclick = ()=>goTo(i);
+  dotsContainer.appendChild(d);
+}
+
+function goTo(n){
+  slides[current].classList.remove('active');
+  dotsContainer.children[current].classList.remove('active');
+  current = (n+total)%total;
+  slides[current].classList.add('active');
+  dotsContainer.children[current].classList.add('active');
+  counter.textContent = (current+1)+' / '+total;
+}
+
+function changeSlide(dir){ goTo(current+dir); }
+
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ') changeSlide(1);
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp') changeSlide(-1);
+});
+
+// Touch support
+let touchX=0;
+document.addEventListener('touchstart',e=>touchX=e.touches[0].clientX);
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-touchX;
+  if(Math.abs(dx)>50) changeSlide(dx<0?1:-1);
+});
+</script>
+</body>
+</html>
